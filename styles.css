@@ -1,4 +1,81 @@
 * {
     box-sizing: border-box;
-    background-color: black;
+    background-color: var(--main-bg);
+}
+
+:root {
+    --main-bg: #d6d3d1;
+    --calc-container: #505050;
+    --butons-func: #858585;
+    --button-number: #acacac;
+    --button-oper: #fb923c;
+    --radius: 20px;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    
+}
+
+#container {
+    background-color: var(--calc-container);
+    width: 400px;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    border-radius: var(--radius);
+}
+
+#displayFirst {
+    border-radius: var(--radius) var(--radius) 0 0;
+    height: 40px;
+
+}
+
+#displaySecound {
+    height: 70px;
+
+}
+
+#displayFirst, #displaySecound {
+    /* border: 1px solid red; */
+    background-color: var(--calc-container);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-around;
+}
+
+button {
+    width: 98.5px;
+    height: 100px;
+    border: none;
+    margin-top: 2px;
+}
+
+.func {
+    background-color: var(--butons-func);
+}
+
+.number {
+    background-color: var(--button-number);
+}
+
+.operator {
+    background-color: var(--button-oper);
+}
+
+.radius-right {
+    border-radius: 0 0 var(--radius) 0;
+}
+
+.radius-left {
+    border-radius: 0 0 0 var(--radius);
+    width: 199px;
 }
