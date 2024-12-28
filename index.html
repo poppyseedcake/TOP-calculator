@@ -7,16 +7,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    <script src="calc.js"></script>
+    <script src="calc.js" defer></script>
     <meta name="description" content="The Odin Project: Project Calculator by me"/>
     <title>Calculator</title>
 </head>
 <body>
+    <div id="debug"></div>
     <div id="container">
-        <div id="displayFirst">370</div>
-        <div id="displaySecound">8473984872</div>
+        <div id="displayFirst"></div>
+        <div id="displaySecond">0</div>
         <button type="button" class="func" value="AC">C</button>
-        <button type="button" class="func" value="sign">+ / -</button>
+        <button type="button" class="func" value="sign">+/-</button>
         <button type="button" class="func" value="percent">%</button>
         <button type="button" class="operator" value="/">/</button>
         <button type="button" class="number" value="7">7</button>
@@ -32,7 +33,7 @@
         <button type="button" class="number" value="3">3</button>
         <button type="button" class="operator" value="+">+</button>
         <button type="button" class="number radius-left" value="0">0</button>
-        <button type="button" class="number" value=".">.</button>
+        <button type="button" class="number dot" value=".">.</button>
         <button type="button" class="operator radius-right" value="=">=</button>
     </div>
 </body>
