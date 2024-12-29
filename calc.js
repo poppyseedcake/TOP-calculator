@@ -80,25 +80,75 @@ function debug() {
                             whichNum: ${whichNum ? "num2" : "num1"}`;
 }
 
+function funcInput(e) {
+    funcPressed = e.target.value;
+    if (funcPressed === "percent") {
+        //sprawdzic ktory num aktywny i podzielic przez 100
+        if (whichNum) {
+            num2 = num2 / 100;
+            displaySecound.textContent = num2;
+        } else {
+            num1 = num1 / 100;
+            displaySecound.textContent = num1;
+        }
+    }
+}
+
+function hoverOnNum(e) {
+    e.target.classList.add("hoverNum");
+}
+
+function hoverOffNum(e) {
+    e.target.classList.remove("hoverNum");
+}
+
+function hoverOnOperator(e) {
+    e.target.classList.add("hoverOperator");
+}
+
+function hoverOffOperator(e) {
+    e.target.classList.remove("hoverOperator");
+}
+
+function hoverOnFunc(e) {
+    e.target.classList.add("hoverFunc");
+}
+
+function hoverOffFunc(e) {
+    e.target.classList.remove("hoverFunc");
+}
+
 let num1 = "";
 let num2 = "";
 let operatorLast;
 let operator;
 let newNumInput = true;
 let whichNum = 0;
-//
+
 const buttonsNumbers = document.querySelectorAll(".number");
+const buttonOparators = document.querySelectorAll('.operator');
+const buttonFunc = document.querySelectorAll('.func');
 const displaySecound = document.querySelector('#displaySecond');
 const displayFirst = document.querySelector('#displayFirst');
-const buttonOparators = document.querySelectorAll('.operator');
 const debugField = document.querySelector('#debug');
 
 buttonsNumbers.forEach(button => {
     button.addEventListener("click", numberInput);
+    button.addEventListener("mouseover", hoverOnNum);
+    button.addEventListener("mouseout", hoverOffNum);
 });
 
 buttonOparators.forEach(button => {
     button.addEventListener("click", operationInput);
+    button.addEventListener("mouseenter", hoverOnOperator);
+    button.addEventListener("mouseleave", hoverOffOperator);
 });
+
+buttonFunc.forEach(button => {
+    button.addEventListener("click", funcInput);
+    button.addEventListener("mouseenter", hoverOnFunc);
+    button.addEventListener("mouseleave", hoverOffFunc);
+});
+
 
 const intervalId = window.setInterval(debug, 100);
