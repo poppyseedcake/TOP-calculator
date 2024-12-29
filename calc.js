@@ -47,11 +47,25 @@ function operationInput(e) {
     whichNum = !whichNum;
     newNumInput = true;
     operator = e.target.value;
+    let result;
+
+    //after "=" if user click next operation
+    if (num1 === "" && num2 === "" && operator != "=") {
+        num1 = displaySecound.textContent;
+    }
+
+    //1 + 2 -3 (without "=")
+    if (num1 != "" && num2 != "" && operator != "=") {
+        result = operate(num1, operatorLast, num2);
+        [num1, num2] = [result, ""];
+        displaySecound.textContent = result;
+        whichNum = !whichNum;
+    }
 
     if (operator === "=" && num2 != "") {
-        const result = operate(num1, operatorLast, num2);
+        result = operate(num1, operatorLast, num2);
         displaySecound.textContent = result;
-        [num1, num2] = "";
+        [num1, num2] = ["", ""];
     } else {
         operatorLast = operator;
     }
