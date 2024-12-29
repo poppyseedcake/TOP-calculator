@@ -86,7 +86,7 @@ let operatorLast;
 let operator;
 let newNumInput = true;
 let whichNum = 0;
-
+//
 const buttonsNumbers = document.querySelectorAll(".number");
 const displaySecound = document.querySelector('#displaySecond');
 const displayFirst = document.querySelector('#displayFirst');
