@@ -93,7 +93,11 @@ button {
 }
 
 #debug {
+    color: red;
+    font-size: 17px;
+    font-weight: bold;
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 5px;
+    left: 30%;
+    background-color: transparent;
 }
