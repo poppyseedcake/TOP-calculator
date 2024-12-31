@@ -80,17 +80,29 @@ function debug() {
                             whichNum: ${whichNum ? "num2" : "num1"}`;
 }
 
-function funcInput(e) {
-    funcPressed = e.target.value;
-    if (funcPressed === "percent") {
-        //sprawdzic ktory num aktywny i podzielic przez 100
-        if (whichNum) {
-            num2 = num2 / 100;
-            displaySecound.textContent = num2;
-        } else {
-            num1 = num1 / 100;
-            displaySecound.textContent = num1;
-        }
+function funcClear() {
+    [num1, num2] = ["", ""];
+    displaySecound.textContent = 0;
+    displayFirst.textContent = "";
+}
+
+function funcsign() {
+    if (whichNum) {
+        num2 = -num2;
+        displaySecound.textContent = num2;
+    } else {
+        num1 = -num1;
+        displaySecound.textContent = num1;
+    }
+}
+
+function funcPercent() {
+    if (whichNum) {
+        num2 = num2 / 100;
+        displaySecound.textContent = num2;
+    } else {
+        num1 = num1 / 100;
+        displaySecound.textContent = num1;
     }
 }
 
@@ -131,6 +143,10 @@ const buttonFunc = document.querySelectorAll('.func');
 const displaySecound = document.querySelector('#displaySecond');
 const displayFirst = document.querySelector('#displayFirst');
 const debugField = document.querySelector('#debug');
+const clearButton = document.querySelector('#AC');
+const signButton = document.querySelector('#sign');
+const percentButton = document.querySelector('#percent');
+
 
 buttonsNumbers.forEach(button => {
     button.addEventListener("click", numberInput);
@@ -145,10 +161,14 @@ buttonOparators.forEach(button => {
 });
 
 buttonFunc.forEach(button => {
-    button.addEventListener("click", funcInput);
     button.addEventListener("mouseenter", hoverOnFunc);
     button.addEventListener("mouseleave", hoverOffFunc);
 });
+
+clearButton.addEventListener('click', funcClear);
+signButton.addEventListener('click', funcsign);
+percentButton.addEventListener('click', funcPercent);
+
 
 
 const intervalId = window.setInterval(debug, 100);
