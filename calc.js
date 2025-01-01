@@ -11,7 +11,7 @@ function multiply(num1, num2) {
 }
 
 function divide(num1, num2) {
-    return Number(num1) / Number(num2);
+    return num2 == "0" ? "ERorRRoR! Div0 :(" : Number(num1) / Number(num2);
 }
 
 function operate(num1, operator, num2) {
@@ -39,14 +39,20 @@ function numberInput(e){
         displayUpdate("", displaySecound);
     }
 
-    whichNum ? num2 += e.target.value : num1 += e.target.value;
-    displayUpdate(e.target.value, displaySecound, 1);
+    const input = e.target.value;
+    const firstSecondDot = num1.includes(".") && input == "." && !whichNum;
+    const secondSecondDot = num2.includes(".") && input == "." && whichNum;
+
+    if (!firstSecondDot && !secondSecondDot) {
+        whichNum ? num2 += input : num1 += input;
+        displayUpdate(input, displaySecound, 1);
+    }
 }
 
 function operationInput(e) {
-    whichNum = !whichNum;
-    newNumInput = true;
     operator = e.target.value;
+    if (operator != "=" && !newNumInput) whichNum = !whichNum;
+    newNumInput = true;
     let result;
 
     //after "=" if user click next operation
@@ -62,14 +68,24 @@ function operationInput(e) {
         whichNum = !whichNum;
     }
 
-    if (operator === "=" && num2 != "") {
-        result = operate(num1, operatorLast, num2);
-        displayUpdate(result, displaySecound);
-        [num1, num2] = ["", ""];
+    if (operator == "=") {
+        if (num1 == "" || num2 == "") {
+            whichNum = 0;
+            num1 = "";
+            num2 = "";
+            displayUpdate("0", displaySecound);
+        } else {
+            result = operate(num1, operatorLast, num2);
+            displayUpdate(result, displaySecound);
+            [num1, num2] = ["", ""];
+            whichNum = !whichNum
+        }
+        
     } else {
         operatorLast = operator;
     }
 }
+
 
 function debug() {
     debugField.innerHTML = `num1: ${num1}<br>
@@ -139,7 +155,7 @@ function displayUpdate (value, display, extend = 0) {
     extend ? totalValue = display.textContent + value : totalValue = value;
     
     totalValue = totalValue.toString();
-    
+
     if (totalValue.length > 18) totalValue = totalValue.slice(0, 18);
     display.textContent = totalValue;
     //cos nie dizala dla wyniku mnozenia
