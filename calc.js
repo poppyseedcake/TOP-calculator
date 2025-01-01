@@ -36,11 +36,11 @@ function operate(num1, operator, num2) {
 function numberInput(e){
     if (newNumInput) {
         newNumInput = false;
-        displaySecound.textContent = "";
+        displayUpdate("", displaySecound);
     }
 
     whichNum ? num2 += e.target.value : num1 += e.target.value;
-    displaySecound.textContent += e.target.value;  
+    displayUpdate(e.target.value, displaySecound, 1);
 }
 
 function operationInput(e) {
@@ -58,13 +58,13 @@ function operationInput(e) {
     if (num1 != "" && num2 != "" && operator != "=") {
         result = operate(num1, operatorLast, num2);
         [num1, num2] = [result, ""];
-        displaySecound.textContent = result;
+        displayUpdate(result, displaySecound);
         whichNum = !whichNum;
     }
 
     if (operator === "=" && num2 != "") {
         result = operate(num1, operatorLast, num2);
-        displaySecound.textContent = result;
+        displayUpdate(result, displaySecound);
         [num1, num2] = ["", ""];
     } else {
         operatorLast = operator;
@@ -82,27 +82,31 @@ function debug() {
 
 function funcClear() {
     [num1, num2] = ["", ""];
-    displaySecound.textContent = 0;
-    displayFirst.textContent = "";
+    displayUpdate(0, displaySecound);
+    displayUpdate("", displayFirst);
 }
 
 function funcsign() {
+    if (num1 === "" && num2 === "") num1 = displaySecound.textContent;
+    
     if (whichNum) {
         num2 = -num2;
-        displaySecound.textContent = num2;
+        displayUpdate(num2, displaySecound);
     } else {
         num1 = -num1;
-        displaySecound.textContent = num1;
+        displayUpdate(num1, displaySecound);
     }
 }
 
 function funcPercent() {
+    if (num1 === "" && num2 === "") num1 = displaySecound.textContent;
+
     if (whichNum) {
         num2 = num2 / 100;
-        displaySecound.textContent = num2;
+        displayUpdate(num2, displaySecound);
     } else {
         num1 = num1 / 100;
-        displaySecound.textContent = num1;
+        displayUpdate(num1, displaySecound);
     }
 }
 
@@ -128,6 +132,17 @@ function hoverOnFunc(e) {
 
 function hoverOffFunc(e) {
     e.target.classList.remove("hoverFunc");
+}
+
+function displayUpdate (value, display, extend = 0) {
+    let totalValue;
+    extend ? totalValue = display.textContent + value : totalValue = value;
+    
+    totalValue = totalValue.toString();
+    
+    if (totalValue.length > 18) totalValue = totalValue.slice(0, 18);
+    display.textContent = totalValue;
+    //cos nie dizala dla wyniku mnozenia
 }
 
 let num1 = "";
