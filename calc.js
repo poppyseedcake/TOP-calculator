@@ -39,7 +39,8 @@ function numberInput(e){
         displayUpdate("", displaySecound);
     }
 
-    const input = e.target.value;
+    const input = e.target.value || e.key;
+
     const firstSecondDot = num1.includes(".") && input == "." && !whichNum;
     const secondSecondDot = num2.includes(".") && input == "." && whichNum;
 
@@ -50,7 +51,7 @@ function numberInput(e){
 }
 
 function operationInput(e) {
-    operator = e.target.value;
+    operator = e.target.value || e.key;
     if (operator != "=" && !newNumInput) whichNum = !whichNum;
     newNumInput = true;
     let result;
@@ -126,6 +127,26 @@ function funcPercent() {
     }
 }
 
+function funcBackspace () {
+    let newValue;
+    if (whichNum) {
+        newValue = num2.slice(0, num2.length-1);
+        num2 = newValue;
+        if (num2 == "") {
+            newValue = 0;
+            newNumInput = true;
+        }
+    } else {
+        newValue = num1.slice(0, num1.length-1);
+        num1 = newValue;
+        if (num1 == "") {
+            newValue = 0;
+            newNumInput = true;
+        }
+    }
+    displayUpdate(newValue, displaySecound);
+}
+
 function hoverOnNum(e) {
     e.target.classList.add("hoverNum");
 }
@@ -155,10 +176,8 @@ function displayUpdate (value, display, extend = 0) {
     extend ? totalValue = display.textContent + value : totalValue = value;
     
     totalValue = totalValue.toString();
-
     if (totalValue.length > 18) totalValue = totalValue.slice(0, 18);
     display.textContent = totalValue;
-    //cos nie dizala dla wyniku mnozenia
 }
 
 let num1 = "";
@@ -199,6 +218,41 @@ buttonFunc.forEach(button => {
 clearButton.addEventListener('click', funcClear);
 signButton.addEventListener('click', funcsign);
 percentButton.addEventListener('click', funcPercent);
+
+document.addEventListener('keyup', (e) => {
+    switch(e.key) {
+        case "1":
+        case "2":
+        case "3":
+        case "4":
+        case "5":
+        case "6":
+        case "7":
+        case "8":
+        case "9":
+        case "0":
+        case ".":
+            numberInput(e);
+            break;
+        case "/":
+        case "*":
+        case "-":
+        case "+":
+        case "=":
+            operationInput(e);
+            break;
+        case "%":
+            funcPercent();
+            break;
+        case "Delete":
+            funcClear();
+            break;
+        case "Backspace":
+            funcBackspace();
+            break;
+
+    }
+});
 
 
 
