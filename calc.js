@@ -41,8 +41,8 @@ function numberInput(e){
 
     const input = e.target.value || e.key;
 
-    const firstSecondDot = num1.includes(".") && input == "." && !whichNum;
-    const secondSecondDot = num2.includes(".") && input == "." && whichNum;
+    const firstSecondDot = num1.toString().includes(".") && input == "." && !whichNum;
+    const secondSecondDot = num2.toString().includes(".") && input == "." && whichNum;
 
     if (!firstSecondDot && !secondSecondDot) {
         whichNum ? num2 += input : num1 += input;
@@ -59,6 +59,11 @@ function operationInput(e) {
     //after "=" if user click next operation
     if (num1 === "" && num2 === "" && operator != "=") {
         num1 = displaySecound.textContent;
+        whichNum = 1;
+    }
+
+    if (num1 != "" && num2 == "" && operator != "=") {
+        whichNum = 1;
     }
 
     //1 + 2 -3 (without "=")
